@@ -53,7 +53,7 @@ async def any_inline_query(query: types.InlineQuery):
     )
 
     content_compliment = types.InputTextMessageContent(
-        message_text=formatting.format_text(formatting.hbold("Шутейка: \n"), formatting.hcite(compliments)),
+        message_text=formatting.format_text(formatting.hbold("Коплементарный: \n"), formatting.hcite(compliments)),
         parse_mode="HTML"
     )
     result_joke_article = types.InlineQueryResultArticle(
