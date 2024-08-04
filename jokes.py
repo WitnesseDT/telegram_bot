@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from lxml import etree
 import requests as rq
 import random
+from urllib.parse import unquote
 from datetime import date, timedelta
 
 xpaths = "//div[@class=\"topicbox\"]/div[@class=\"text\"]"
@@ -18,14 +19,24 @@ def get_jokesi():
     voteP = 0
     voteN = 0
     votes = 0
+    source_of_joke = ""
+
     element_joke = elements_of_joke.xpath(xpaths)
     joke_votes = elements_of_joke.xpath(vote_xpath)
+    
     valuesOfElement = len(element_joke)
 
 
     valueOfElement = random.randrange(0, valuesOfElement)
-    
     _, votes, voteP, voteN = joke_votes[valueOfElement].get('data-r').split(';')
+    element_btn = joke_votes[valueOfElement].getnext()
+    try:
+        element_source_of_joke = element_btn.getchildren()[2]
+        if(element_source_of_joke.get('data-site') != None):
+            source_of_joke = unquote(element_source_of_joke.get('data-site'))
+            print(f"dd {source_of_joke}")
+    except:
+        source_of_joke = ""
 
     if element_joke[valueOfElement].getchildren() == []:
         jok = element_joke[valueOfElement]
@@ -35,8 +46,8 @@ def get_jokesi():
         joks = joks + element_joke[valueOfElement].text + '\n'
         for child in childs:
             joks = joks + child.tail + '\n'
-    joks = joks + "\n" + "   👆   " + voteP + "   👇   " + voteN + "   🫵   " + votes
-    JOKES = joks
+    # joks = joks + "\n" + "   👆   " + voteP + "   👇   " + voteN + "   🫵   " + votes
+    JOKES = [joks, voteP, voteN, votes, source_of_joke]
     return JOKES
 
 
