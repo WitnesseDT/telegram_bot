@@ -1,7 +1,7 @@
-from telebot import TeleBot, types, asyncio_filters
+from telebot import types, asyncio_filters
 from telebot import formatting
 from telebot.async_telebot import AsyncTeleBot
-import random
+
 import asyncio
 import default_messages, jokes, config, buttons, complinemt
 
