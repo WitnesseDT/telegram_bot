@@ -48,7 +48,7 @@ async def any_inline_query(query: types.InlineQuery):
     kb = buttons.kb_joke_handler(joke[1], joke[2], joke[3], joke[4])
 
     content_joke = types.InputTextMessageContent(
-        message_text=formatting.hcite(joke[0]),
+        message_text=formatting.format_text(formatting.hbold("Шутейка: \n"), formatting.hcite(joke[0]),),
         parse_mode="HTML",
     )
 
