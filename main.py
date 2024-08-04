@@ -3,7 +3,7 @@ from telebot import formatting
 from telebot.async_telebot import AsyncTeleBot
 import random
 import asyncio
-import default_messages, jokes, config, buttons
+import default_messages, jokes, config, buttons, complinemt
 
 
 bot = AsyncTeleBot(config.BOT_TOKEN)
@@ -43,27 +43,42 @@ def any_query(query: types.InlineQuery):
 
 @bot.inline_handler(func=any_query)
 async def any_inline_query(query: types.InlineQuery):
-    text = jokes.get_jokesi()
-    kb = buttons.kb_joke_handler(text[1], text[2], text[3], text[4])
-    content = types.InputTextMessageContent(
-        message_text=formatting.hcite(text[0]),
+    joke = jokes.get_jokesi()
+    compliments = complinemt.get_comlinemts()
+    kb = buttons.kb_joke_handler(joke[1], joke[2], joke[3], joke[4])
+
+    content_joke = types.InputTextMessageContent(
+        message_text=formatting.hcite(joke[0]),
         parse_mode="HTML",
     )
-    result_article = types.InlineQueryResultArticle(
+
+    content_compliment = types.InputTextMessageContent(
+        message_text=formatting.hcite(compliments),
+        parse_mode="HTML"
+    )
+    result_joke_article = types.InlineQueryResultArticle(
         id = "joke-id",
         title = "Шутка минутка",
-        input_message_content = content,
-        thumbnail_url = config.THUMNAIL_PHOTO_FOR_INLINE_QUERY,
+        input_message_content = content_joke,
+        thumbnail_url = config.THUMNAIL_PHOTO_JOKE_FOR_INLINE_QUERY,
         reply_markup = kb
         
     ) 
+    result_comliment_article = types.InlineQueryResultArticle(
+        id = "complment-id",
+        title = "Комплементарный комплимент",
+        input_message_content = content_compliment,
+        thumbnail_url = config.THUMNAIL_PHOTO_COMLIMENT_FOR_INLINE_QUERY
+
+    )
     result = [
-        result_article,
+        result_joke_article,
+        result_comliment_article
     ]
     await bot.answer_inline_query(
         inline_query_id=query.id,
         results=result,
-        cache_time=4,
+        cache_time=2,
         
     )
 
