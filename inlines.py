@@ -32,7 +32,7 @@ result_joke_article = types.InlineQueryResultArticle(
 ) 
 result_comliment_article = types.InlineQueryResultArticle(
     id = "complment-id",
-    title = "Комплементарный комплимент",
+    title = "Комплиментарный комплимент",
     input_message_content = content_compliment,
     thumbnail_url = config.THUMNAIL_PHOTO_COMLIMENT_FOR_INLINE_QUERY
 )
