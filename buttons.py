@@ -17,10 +17,6 @@ def kb_joke_handler(voteP: str = 0, voteN: str = 0,totalVotes: str = 0, base_sou
             text = votesN,
             callback_data="qwerty2"
         )
-        button_total_vote = types.InlineKeyboardButton(
-            text = totalVote,
-            callback_data="qwerty3"
-        )
     else:
         button_voteP = types.InlineKeyboardButton(
             text = votesP,
@@ -30,9 +26,5 @@ def kb_joke_handler(voteP: str = 0, voteN: str = 0,totalVotes: str = 0, base_sou
             text = votesN,
             url=source_joke
         )
-        button_total_vote = types.InlineKeyboardButton(
-            text = totalVote,
-            url=source_joke
-        )
-    kb.row(button_voteP, button_total_vote, button_voteN)
+    kb.row(button_voteP, button_voteN)
     return kb

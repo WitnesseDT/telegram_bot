@@ -44,7 +44,7 @@ def any_query(query: types.InlineQuery):
 @bot.inline_handler(func=any_query)
 async def any_inline_query(query: types.InlineQuery):
     joke = jokes.get_jokesi()
-    compliments = complinemt.get_comlinemts()
+    compliments = complinemt.get_for_women_comlinemts()
     kb = buttons.kb_joke_handler(joke[1], joke[2], joke[3], joke[4])
 
     content_joke = types.InputTextMessageContent(
