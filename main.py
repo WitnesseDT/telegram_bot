@@ -40,15 +40,9 @@ async def send_joke_message(message: types.Message):
 
 def any_query(query: types.InlineQuery):
     return True
-@bot.inline_handler(func=any_query)
-async def dice_inline_qurey(query: types.InlineQuery):
-    dice = "🎰"
-    await bot.send_dice(
-        chat_id=query.from_user.id,
-        emoji = dice,
-    )
 
-    
+
+
 @bot.inline_handler(func=any_query)
 async def any_inline_query(query: types.InlineQuery):
 
