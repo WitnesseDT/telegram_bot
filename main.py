@@ -47,11 +47,6 @@ async def any_inline_query(query: types.InlineQuery):
     joke = jokes.get_jokesi()
     compliments = complinemt.get_for_women_comlinemts()
     kb = buttons.kb_joke_handler(joke[1], joke[2], joke[3], joke[4])
-
-    content_dice = types.InputTextMessageContent(
-        message_text=dice
-    )
-
     content_joke = types.InputTextMessageContent(
         message_text=formatting.format_text(formatting.hbold("Шутейка: \n"), formatting.hcite(joke[0]),),
         parse_mode="HTML",
