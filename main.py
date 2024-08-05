@@ -49,7 +49,6 @@ async def any_inline_query(query: types.InlineQuery):
     result = [
         inlines.result_joke_article,
         inlines.result_comliment_article,
-        inlines.result_dice_article,
 
     ]
     await bot.answer_inline_query(
