@@ -24,6 +24,7 @@ async def hello_messages(message: types.Message):
     await bot.send_message(
         chat_id=message.chat.id,
         text=msg.HELLO_MSG,
+        parse_mode="HTML"
     )
 
 @bot.message_handler(commands=['help'])

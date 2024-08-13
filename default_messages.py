@@ -7,5 +7,5 @@ BOT_HELP = """Ты нажав хелп
 START_MSG = """Ты нажав старт"""
 
 HELLO_MSG = formatting.format_text(
-    ["Приветственное сообщение от ", formatting.mbold("чудо бота\n"), "/help - для хелпа.\n/joke - для джока."]
+    "Приветственное сообщение от ", formatting.hbold("чудо бота\n"), "/help - для хелпа.\n/joke - для джока."
 )
