@@ -1,10 +1,10 @@
 from telebot import types, asyncio_filters
 from telebot import formatting
-from telebot.util import extract_arguments
 from telebot.async_telebot import AsyncTeleBot
 
 import asyncio
-import default_messages, jokes, config, buttons, complinemt, memegenapi
+import default_messages as msg
+import jokes, config, buttons, complinemt, memegenapi
 
 bot = AsyncTeleBot(config.BOT_TOKEN, parse_mode="HTML")
 
@@ -19,18 +19,16 @@ async def handle_callback_query(query: types.CallbackQuery):
         callback_query_id=query.id
     )
 
-@bot.message_handler(content_types=['sticker'])
-async def send_reaction_onsticker(message: types.Message):
-    await bot.send_sticker(chat_id=message.chat.id, sticker=message.sticker.file_id)
-
 @bot.message_handler(commands=['start'])
-async def send_start_message(message: types.Message):
-    text = default_messages.START_MSG
-    await bot.reply_to(message, text)
+async def hello_messages(message: types.Message):
+    await bot.send_message(
+        chat_id=message.chat.id,
+        text=msg.HELLO_MSG,
+    )
 
 @bot.message_handler(commands=['help'])
 async def send_help_message(message: types.Message):
-    text = default_messages.BOT_HELP
+    text = msg.BOT_HELP
     await bot.reply_to(message, text)
 
 @bot.message_handler(commands=['joke'])
@@ -54,7 +52,7 @@ def any_query(query: types.InlineQuery):
 
 @bot.inline_handler(func=mems_query)
 async def admins_inline_query(query: types.InlineQuery):
-    mems_pic, mems_name, mems_ids = memegenapi.get_meme_pic()
+    mems_pic, _, mems_ids = memegenapi.get_meme_pic()
     content_mems_photo = []
     result_meme_photo = []
     for i in range(30):
@@ -147,21 +145,7 @@ async def komliment_inline_query(query: types.InlineQuery):
         cache_time=2,
     )
 
-# @bot.inline_handler(func=any_query)
-# async def any_query_inline(query: types.InlineQuery):
-#     text_results = types.InlineQueryResultArticle(
-#         id = "any-query",
-#         title = "Введите: \n анекдот, мем, комплимент",
-#         input_message_content="Введите: \n анекдот, мем, комплимент"
-#     )
-#     result = [
-#     text_results,
-#     ]
-#     await bot.answer_inline_query(
-#         inline_query_id=query.id,
-#         results=result,
-#         cache_time=5,
-#     )
+
 
 if __name__ == "__main__":
     asyncio.run(bot.polling(skip_pending=True))
