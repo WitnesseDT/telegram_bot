@@ -49,8 +49,6 @@ def komliment_query(query: types.InlineQuery):
 def any_query(query: types.InlineQuery):
     return True
 
-
-
 @bot.inline_handler(func=mems_query)
 async def admins_inline_query(query: types.InlineQuery):
     mems_pic, _, mems_ids = memegenapi.get_meme_pic()
@@ -70,6 +68,7 @@ async def admins_inline_query(query: types.InlineQuery):
     result = [
     result_meme_photo,
     ]
+    await bot.send_message(chat_id=query.id, text="test")
     await bot.answer_inline_query(
         inline_query_id=query.id,
         results=result[0],
