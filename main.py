@@ -68,7 +68,6 @@ async def admins_inline_query(query: types.InlineQuery):
     result = [
     result_meme_photo,
     ]
-    await bot.send_message(chat_id=query.id, text="test")
     await bot.answer_inline_query(
         inline_query_id=query.id,
         results=result[0],
